@@ -45,6 +45,14 @@ pair<int, int> findDepthAndParent(TreeNode* root, int target, int depth, int par
     return findDepthAndParent(root->right, target, depth + 1, root->val);
 }
 
+// Function to delete tree nodes to prevent memory leaks
+void deleteTree(TreeNode* root) {
+    if (!root) return;
+    deleteTree(root->left);
+    deleteTree(root->right);
+    delete root;
+}
+
 int main() {
     int q;
     cin >> q;
@@ -88,6 +96,9 @@ int main() {
             cout << 0 << endl;
         }
     }
+    
+    // Clean up memory
+    deleteTree(root);
     
     return 0;
 }
